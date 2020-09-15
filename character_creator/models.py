@@ -58,3 +58,14 @@ class Character(models.Model):
 	
 	def __str__(self):
 		return self.name
+
+
+
+class Skill(models.Model):
+	name = models.CharField(max_length=32)
+	short_description = models.CharField(max_length=128, blank=True)
+	long_description = models.CharField(max_length=512, blank=True)
+	default_value = models.IntegerField(default = 0)
+	
+	def __str__(self):
+		return self.name
