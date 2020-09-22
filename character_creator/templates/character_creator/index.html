@@ -2,7 +2,7 @@
 Characters:
 	<ul>
 	{% for character in character_list %}
-		<li><a href="{% url 'sheet' character.id %}">{{ character.name }}</a></li>
+		<li><a href="{% url 'character:sheet' character.id %}">{{ character.name }}</a></li>
 	{% endfor %}
 	</ul>
 {% else %}

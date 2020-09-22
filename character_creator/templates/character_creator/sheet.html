@@ -1,5 +1,44 @@
 {% if character %}
-	{{ character.name }}
+	Name: {{ character.name }}<br>
+	Player: {{ character.player }}<br>
+	Occupation: {{ character.occupation }}<br>
+	Age: {{ character.age }}<br>
+	Sex: {{ character.sex }}<br>
+	Residence: {{ character.residence }}<br>
+	Birthplace: {{ character.birthplace }}<br>
+	STR: {{ character.strength }}<br>
+	DEX: {{ character.dexterity }}<br>
+	INT: {{ character.intelligence }}<br>
+	CON: {{ character.constitution }}<br>
+	APP: {{ character.appearance }}<br>
+	POW: {{ character.power }}<br>
+	SIZ: {{ character.size }}<br>
+	EDU: {{ character.education }}<br>
+	MvR: {{ character.move_rate }}<br>
+	Major Wound: {{ character.major_wound }}<br>
+	HP: {{ character.hit_points }}<br>
+	SAN: {{ character.sanity }}<br>
+	LCK: {{ character.luck }}<br>
+	MP: {{ character.magic_points }}<br>
+	DB: {{ character.damage_bonus }}<br>
+	Build: {{ character.build }}<br>
+	Personal Description: {{ character.personal_description }}<br>
+	Ideology and Beliefs: {{ character.ideology_and_beliefs }}<br>
+	Significant People: {{ character.significant_people }}<br>
+	Meaningful Locations: {{ character.meaningful_locations }}<br>
+	Treasured Posessions: {{ character.teasured_possessions }}<br>
+	Traits: {{ character.traits }}<br>
+	Injuries: {{ character.injuries }}<br>
+	Phobias and Manias: {{ character.phobias_and_manias }}<br>
+	Arcane Tomes: {{ character.arcane_tomes }}<br>
+	Spells: {{ character.spells }}<br>
+	Artifacts: {{ character.artifacts }}<br>
+	Encounters: {{ character.encounters }}<br>
+	Spending Level: {{ character.spending_level }}<br>
+	Cash: {{ character.cash }}<br>
+	Assets: {{ character.assets }}<br>
+	Notes: {{ character.notes }}<br>
+	
 {% else %}
 	<p>Character not available.</p>
 {% endif %}
