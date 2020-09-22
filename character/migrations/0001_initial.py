@@ -61,7 +61,7 @@ class Migration(migrations.Migration):
                 ('cash', models.IntegerField(default=0)),
                 ('assets', models.CharField(max_length=512)),
                 ('notes', models.CharField(max_length=512)),
-                ('player', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to='character_creator.player')),
+                ('player', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to='character.player')),
             ],
         ),
     ]

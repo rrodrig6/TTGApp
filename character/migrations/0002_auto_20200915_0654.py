@@ -7,7 +7,7 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('character_creator', '0001_initial'),
+        ('character', '0001_initial'),
     ]
 
     operations = [
@@ -79,7 +79,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='character',
             name='player',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, to='character_creator.player'),
+            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, to='character.player'),
         ),
         migrations.AlterField(
             model_name='character',

@@ -9,11 +9,11 @@ from .models import Character
 def index(request):
 	character_list = Character.objects.all()
 	context = {'character_list': character_list}
-	return render(request, 'character_creator/index.html', context)
+	return render(request, 'character/index.html', context)
 	
 def sheet(request, character_id):
 	context = {'character' : Character.objects.get(id=character_id) }
-	return render(request, 'character_creator/sheet.html', context)
+	return render(request, 'character/sheet.html', context)
 	
 def create(request):
 	if request.method == 'POST':
@@ -36,5 +36,5 @@ def create(request):
 		return HttpResponseRedirect(reverse('character:sheet', args=[character.id]))
 	else:
 		context = {}
-		return render(request, 'character_creator/create.html', context)
+		return render(request, 'character/create.html', context)
 	

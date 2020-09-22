@@ -6,7 +6,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('character_creator', '0003_skill'),
+        ('character', '0003_skill'),
     ]
 
     operations = [
