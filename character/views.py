@@ -3,9 +3,22 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render
 
 from django.urls import reverse
+from django.views import generic
 
 from .models import Character
 
+class IndexView(generic.ListView):
+	template_name = 'character/index.html'
+	#context_object_name = 'character_list'
+	
+	def get_queryset(self):
+		return Character.objects.all()
+
+class DetailView(generic.DetailView):
+	model = Character
+	template_name = 'character/sheet.html'
+
+'''
 def index(request):
 	character_list = Character.objects.all()
 	context = {'character_list': character_list}
@@ -14,7 +27,9 @@ def index(request):
 def sheet(request, character_id):
 	context = {'character' : Character.objects.get(id=character_id) }
 	return render(request, 'character/sheet.html', context)
-	
+
+'''	
+
 def create(request):
 	if request.method == 'POST':
 		character = Character(

@@ -58,6 +58,9 @@ class Character(models.Model):
 	
 	def __str__(self):
 		return self.name
+		
+	def derive_sanity(self):
+		self.sanity = self.power
 
 
 
