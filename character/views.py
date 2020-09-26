@@ -6,6 +6,7 @@ from django.urls import reverse
 from django.views import generic
 
 from .models import Character
+from .forms import CharacterForm
 
 class IndexView(generic.ListView):
 	template_name = 'character/index.html'
@@ -31,6 +32,19 @@ def sheet(request, character_id):
 '''	
 
 def create(request):
+
+	if request.method == 'POST':
+
+		form = CharacterForm(request.POST)
+		if form.is_valid():
+			form.save()
+			return HttpResponseRedirect(reverse('character:sheet', args=[form.instance.id]))
+
+	else:
+			form = CharacterForm()
+
+	return render(request,'character/create.html', {'form':form})
+	"""
 	if request.method == 'POST':
 		character = Character(
 			name = request.POST['name'],
@@ -53,3 +67,4 @@ def create(request):
 		context = {}
 		return render(request, 'character/create.html', context)
 	
+	"""
