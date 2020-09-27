@@ -31,6 +31,10 @@ def sheet(request, character_id):
 
 '''	
 
+def play(request, pk):
+	character = Character.objects.get(id=pk)
+	return render(request, 'character/play.html', {'character':character})
+
 def create(request):
 
 	if request.method == 'POST':
