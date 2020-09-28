@@ -1,5 +1,15 @@
 $(function(){
 
+    $('#bonus_dice_minus_id').click(function(){
+        num_bonus_dice --;
+        $('#num_bonus_id').html(getBonusDiceText());
+    });
+
+    $('#bonus_dice_plus_id').click(function(){
+       num_bonus_dice ++;
+        $('#num_bonus_id').html(getBonusDiceText());
+    });
+
     $('#roll_id').click(function(){
         $.ajax({
             type:'POST',
@@ -13,6 +23,11 @@ $(function(){
                 alert("Error");
             }
         });
+    });
+
+    $('.d100-rollable').click(function(){
+        console.log($(this).attr('value'));
+        $('#roll_selection_id').html($(this).parent().prev().html()+" "+$(this).attr('value'));
     });
 });
 
@@ -31,5 +46,21 @@ function getCookie(name) {
     }
     return cookieValue;
 }
+
+function getBonusDiceText()
+{
+    var message;
+    if(num_bonus_dice>=0)
+        {
+            message = "+"+num_bonus_dice+" Bonus Dice";
+        }
+        else
+        {
+            message = num_bonus_dice+" Penalty Dice";
+        }
+    return message;
+}
+
+var num_bonus_dice = 0;
 
 const csrftoken = getCookie('csrftoken');
