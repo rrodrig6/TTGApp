@@ -4,47 +4,7 @@
 
 <form action="{% url 'character:create'  %}" method="post">
 {% csrf_token %}
-<label for="character_name">Name</label>
-<input type ="text" name="name" id="character_name" value=""><br>
-
-<label for="character_occupation">Occupation</label>
-<input type ="text" name="occupation" id="character_occupation" value=""><br>
-
-<label for="character_age">Age</label>
-<input type ="text" name="age" id="character_age" value=""><br>
-
-<label for="character_sex">Sex</label>
-<input type ="text" name="sex" id="character_sex" value=""><br>
-
-<br><br>
-
-<label for="character_strength">Strength</label>
-<input type ="text" name="strength" id="character_strength" value=""><button id="roll_character_strength">Roll</button><br>
-
-<label for="character_dexterity">Dexterity</label>
-<input type ="text" name="dexterity" id="character_dexterity" value=""><button id="roll_character_dexterity">Roll</button><br>
-
-<label for="character_intelligence">Intelligence</label>
-<input type ="text" name="intelligence" id="character_intelligence" value=""><button id="roll_character_intelligence">Roll</button><br>
-
-<label for="character_constitution">Constitution</label>
-<input type ="text" name="constitution" id="character_constitution" value=""><button id="roll_character_consitution">Roll</button><br>
-
-<label for="character_appearance">Appearance</label>
-<input type ="text" name="appearance" id="character_appearance" value=""><button id="roll_character_appearance">Roll</button><br>
-
-<label for="character_power">Power</label>
-<input type ="text" name="power" id="character_power" value=""><button id="roll_character_power">Roll</button><br>
-
-<label for="character_size">Size</label>
-<input type ="text" name="size" id="character_size" value=""><button id="roll_character_size">Roll</button><br>
-
-<label for="character_education">Education</label>
-<input type ="text" name="education" id="character_education" value=""><button id="roll_character_education">Roll</button><br>
-
-<label for="character_luck">Luck</label>
-<input type ="text" name="luck" id="character_luck" value=""><button id="roll_character_luck">Roll</button><br>
-
+{{ form }}
 
 <input type="submit" value="Create">
 </form>
