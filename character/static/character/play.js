@@ -15,9 +15,10 @@ $(function(){
             type:'POST',
             headers: {'X-CSRFToken': csrftoken},
             url: "roll/",
-            data: {dVal: 100},
+            data: {dVal: 100, characterId: $("#character_id").val(), rollSkill: roll_skill},
             success: function(response) {
                 $("#roll_out_id").html(response["dResult"]);
+                $("#roll_message_id").html(response["messageOut"]);
             },
             error: function (response) {
                 alert("Error");
@@ -28,6 +29,8 @@ $(function(){
     $('.d100-rollable').click(function(){
         console.log($(this).attr('value'));
         $('#roll_selection_id').html($(this).parent().prev().html()+" "+$(this).attr('value'));
+        roll_skill = $(this).attr('skill-name');
+        console.log(roll_skill);
     });
 });
 
@@ -62,5 +65,6 @@ function getBonusDiceText()
 }
 
 var num_bonus_dice = 0;
+var roll_skill = '';
 
 const csrftoken = getCookie('csrftoken');

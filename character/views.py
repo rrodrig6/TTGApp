@@ -14,7 +14,7 @@ from random import randint
 class IndexView(generic.ListView):
 	template_name = 'character/index.html'
 	#context_object_name = 'character_list'
-	
+
 	def get_queryset(self):
 		return Character.objects.all()
 
@@ -39,12 +39,24 @@ def create(request):
 			form = CharacterForm()
 
 	return render(request,'character/create.html', {'form':form})
-	
+
 
 def roll(request, pk):
 	if request.is_ajax and request.method == 'POST':
 		if int(request.POST['dVal']) == 100:
 			dResult = randint(1,100)
-			return JsonResponse({'dResult':str(dResult)}, status=200)
+			if(dResult<2):
+				messageOut = 'Critical Success!'
+			elif(dResult<11):
+				messageOut = 'Extreme Success!'
+			elif(dResult<26):
+				messageOut = 'Hard Success!'
+			elif(dResult<51):
+				messageOut = 'Regular Success!'
+			elif(dResult<96):
+				messageOut = 'FAILURE'
+			else:
+				messageOut = 'FUMBLE'
+			return JsonResponse({'dResult':str(dResult), 'messageOut':messageOut}, status=200)
 		else:
 			return JsonResponse({'error':'dValError'})
