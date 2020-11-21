@@ -15,10 +15,10 @@ $(function(){
             type:'POST',
             headers: {'X-CSRFToken': csrftoken},
             url: "roll/",
-            data: {dVal: 100, characterId: $("#character_id").val(), rollSkill: roll_skill},
+            data: {d_val: 100, character_id: $("#character_id").val(), roll_skill: roll_skill},
             success: function(response) {
-                $("#roll_out_id").html(response["dResult"]);
-                $("#roll_message_id").html(response["messageOut"]);
+                $("#roll_out_id").html(response["d_result"]);
+                $("#roll_message_id").html(response["message_out"]);
             },
             error: function (response) {
                 alert("Error");

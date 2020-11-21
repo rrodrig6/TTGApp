@@ -43,20 +43,24 @@ def create(request):
 
 def roll(request, pk):
 	if request.is_ajax and request.method == 'POST':
-		if int(request.POST['dVal']) == 100:
-			dResult = randint(1,100)
-			if(dResult<2):
-				messageOut = 'Critical Success!'
-			elif(dResult<11):
-				messageOut = 'Extreme Success!'
-			elif(dResult<26):
-				messageOut = 'Hard Success!'
-			elif(dResult<51):
-				messageOut = 'Regular Success!'
-			elif(dResult<96):
-				messageOut = 'FAILURE'
+		if int(request.POST['d_val']) == 100:
+			d_result = randint(1,100)
+			if 'character_id' in request.POST and 'roll_skill' in request.POST:
+				character = Character.objects.get(id=request.POST['character_id'])
+				message_out = character.roll_against_skill(request.POST['roll_skill'], d_result)
 			else:
-				messageOut = 'FUMBLE'
-			return JsonResponse({'dResult':str(dResult), 'messageOut':messageOut}, status=200)
+				if(d_result<2):
+					message_out = 'Critical Success!'
+				elif(d_result<11):
+					message_out = 'Extreme Success!'
+				elif(d_result<26):
+					message_out = 'Hard Success!'
+				elif(d_result<51):
+					message_out = 'Regular Success!'
+				elif(d_result<96):
+					message_out = 'FAILURE'
+				else:
+					message_out = 'FUMBLE'
+			return JsonResponse({'d_result':str(d_result), 'message_out':message_out}, status=200)
 		else:
-			return JsonResponse({'error':'dValError'})
+			return JsonResponse({'error':'d_val_error'})
