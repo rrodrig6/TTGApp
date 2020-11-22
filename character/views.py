@@ -10,6 +10,7 @@ from .models import Character
 from .forms import CharacterForm
 
 from random import randint
+from math import floor
 
 class IndexView(generic.ListView):
 	template_name = 'character/index.html'
@@ -43,11 +44,38 @@ def create(request):
 
 def roll(request, pk):
 	if request.is_ajax and request.method == 'POST':
+		debug_out = ''
 		if int(request.POST['d_val']) == 100:
 			d_result = randint(1,100)
+			# Process bonus/penalty dice rolls
+			if 'num_bonus_dice' in request.POST:
+				bonus_dice = int(request.POST['num_bonus_dice'])
+				d_result_ones = d_result % 10
+				d_result_tens = floor(d_result/10)
+				debug_out += "Original Ones: " + str(d_result_ones) + "<br>"
+				debug_out += "Original Tens: " + str(d_result_tens) + "<br>"
+				if bonus_dice < 0:
+					while(bonus_dice != 0):
+						bonus_die_value = randint(1,10)
+						debug_out += "Penalty Tens: " + str(bonus_die_value) + "<br>"
+						if(bonus_die_value > d_result_tens):
+							d_result_tens = bonus_die_value
+						bonus_dice += 1
+				if bonus_dice > 0:
+					while(bonus_dice !=0):
+						bonus_die_value = randint(1,10)
+						debug_out += "Bonus Tens: " + str(bonus_die_value) + "<br>"
+						if(bonus_die_value < d_result_tens):
+							d_result_tens = bonus_die_value
+						bonus_dice -= 1
+				d_result = (d_result_tens * 10) + d_result_ones
+				if d_result > 100:
+					d_result = 100
+			# Process Character skill roll
 			if 'character_id' in request.POST and 'roll_skill' in request.POST:
 				character = Character.objects.get(id=request.POST['character_id'])
 				message_out = character.roll_against_skill(request.POST['roll_skill'], d_result)
+			# Contextless dice roll
 			else:
 				if(d_result<2):
 					message_out = 'Critical Success!'
@@ -61,6 +89,6 @@ def roll(request, pk):
 					message_out = 'FAILURE'
 				else:
 					message_out = 'FUMBLE'
-			return JsonResponse({'d_result':str(d_result), 'message_out':message_out}, status=200)
+			return JsonResponse({'d_result':str(d_result), 'message_out':message_out, 'debug_out': debug_out}, status=200)
 		else:
-			return JsonResponse({'error':'d_val_error'})
+			return JsonResponse({'error':'d_val_error', 'debug_out': debug_out})
