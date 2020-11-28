@@ -72,23 +72,12 @@ def roll(request, pk):
 				if d_result > 100:
 					d_result = 100
 			# Process Character skill roll
-			if 'character_id' in request.POST and 'roll_skill' in request.POST:
+			if 'character_id' in request.POST and 'roll_skill' in request.POST and request.POST['roll_skill'] != "":
 				character = Character.objects.get(id=request.POST['character_id'])
 				message_out = character.roll_against_skill(request.POST['roll_skill'], d_result)
 			# Contextless dice roll
 			else:
-				if(d_result<2):
-					message_out = 'Critical Success!'
-				elif(d_result<11):
-					message_out = 'Extreme Success!'
-				elif(d_result<26):
-					message_out = 'Hard Success!'
-				elif(d_result<51):
-					message_out = 'Regular Success!'
-				elif(d_result<96):
-					message_out = 'FAILURE'
-				else:
-					message_out = 'FUMBLE'
+				message_out = "--"
 			return JsonResponse({'d_result':str(d_result), 'message_out':message_out, 'debug_out': debug_out}, status=200)
 		else:
 			return JsonResponse({'error':'d_val_error', 'debug_out': debug_out})

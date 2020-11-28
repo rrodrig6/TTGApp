@@ -28,10 +28,16 @@ $(function(){
     });
 
     $('.d100-rollable').click(function(){
-        console.log($(this).attr('value'));
-        $('#roll_selection_id').html($(this).parent().prev().html()+" "+$(this).attr('value'));
-        roll_skill = $(this).attr('skill-name');
-        console.log(roll_skill);
+        if(roll_skill == $(this).attr('skill-name'))
+        {
+            $('#roll_selection_id').html('Select a Characteristic or Skill');
+            roll_skill = '';
+        }
+        else
+        {
+            $('#roll_selection_id').html($(this).parent().prev().html()+" "+$(this).attr('value'));
+            roll_skill = $(this).attr('skill-name');
+        }
     });
 });
 
