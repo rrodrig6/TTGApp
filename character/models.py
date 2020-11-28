@@ -1,8 +1,9 @@
 from django.db import models
+from math import floor
 
 class Player(models.Model):
 	name = models.CharField(max_length=64)
-	
+
 	def __str__(self):
 		return self.name
 
@@ -15,7 +16,7 @@ class Character(models.Model):
 		(SEX_FEMALE, 'Female'),
 		(SEX_OTHER, 'Other')
 	]
-	
+
 	name = models.CharField(max_length=64)
 	player = models.ForeignKey(Player, blank=True, null=True, on_delete=models.SET_NULL)
 	occupation = models.CharField(max_length=64, blank=True)
@@ -55,20 +56,34 @@ class Character(models.Model):
 	cash = models.IntegerField(default=0)
 	assets = models.CharField(max_length=512, blank=True)
 	notes = models.CharField(max_length=512, blank=True)
-	
+
 	def __str__(self):
 		return self.name
-		
+
 	def derive_sanity(self):
 		self.sanity = self.power
 
-
+	def roll_against_skill(self, skill, d_result):
+		skill_value = getattr(self, skill)
+		if(d_result<2):
+			message_out = 'Critical Success!'
+		elif(d_result<(floor(skill_value/5)+1)):
+			message_out = 'Extreme Success!'
+		elif(d_result<(floor(skill_value/2)+1)):
+			message_out = 'Hard Success!'
+		elif(d_result<(skill_value+1)):
+			message_out = 'Regular Success!'
+		elif(d_result<96):
+			message_out = 'FAILURE'
+		else:
+			message_out = 'FUMBLE'
+		return message_out
 
 class Skill(models.Model):
 	name = models.CharField(max_length=32)
 	short_description = models.CharField(max_length=128, blank=True)
 	long_description = models.CharField(max_length=512, blank=True)
 	default_value = models.IntegerField(default = 0)
-	
+
 	def __str__(self):
 		return self.name
